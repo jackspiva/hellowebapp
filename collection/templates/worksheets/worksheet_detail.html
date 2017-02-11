@@ -7,4 +7,5 @@
 {% block content %}
     <h1>{{ worksheet.name }}</h1>
     <p>{{ worksheet.description }}</p>
+    <a href="{% url 'edit_worksheet' slug=worksheet.slug %}">Edit me!</>
 {% endblock content %}

@@ -5,7 +5,12 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Hello World!</h1>
-    <p>I am a basic website.</p>
-    <p>{{ number }}</p>
+    {% for worksheet in worksheets %}
+    <h2>
+      <a href="{% url 'worksheet_detail' slug=worksheet.slug %}">
+        {{ worksheet.name }}
+      </a>
+    </h2>
+    <p>{{ worksheet.description }}</p>
+    {% endfor %}
 {% endblock content %}
