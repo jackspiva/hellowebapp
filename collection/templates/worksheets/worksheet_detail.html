@@ -7,5 +7,11 @@
 {% block content %}
     <h1>{{ worksheet.name }}</h1>
     <p>{{ worksheet.description }}</p>
-    <a href="{% url 'edit_worksheet' slug=worksheet.slug %}">Edit me!</>
+    {% if user == thing.user %}
+      <p>
+        <a href="{% url 'edit_worksheet' slug=worksheet.slug %}">
+          Edit me!
+        </a>
+      </p>
+    {% endif %}
 {% endblock content %}
