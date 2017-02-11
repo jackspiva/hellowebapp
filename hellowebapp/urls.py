@@ -19,7 +19,9 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
 from django.views.generic import TemplateView
+from collection.backends import MyRegistrationView
 from collection import views
+
 
 urlpatterns = [
     url(r'^$', views.index, name='home'),
@@ -36,6 +38,12 @@ urlpatterns = [
         views.edit_worksheet,
         name='edit_worksheet'),
 
+    # our new browse flow
+    url(r'^browse/name/$',
+        views.browse_by_name, name='browse'),
+    url(r'^browse/name/(?P<initial>[-\w]+)/$',
+        views.browse_by_name, name='browse_by_name'),
+
     url(r'^accounts/password/reset/$', password_reset,
         {'template_name': 'registration/password_reset_form.html'},
         name="password_reset"),
@@ -50,6 +58,11 @@ urlpatterns = [
     url(r'^accounts/password/done/$', password_reset_complete,
         {'template_name': 'registration/password_reset_complete.html'},
         name="password_reset_complete"),
+
+    url(r'^accounts/register/$',
+        MyRegistrationView.as_view(), name='registration_register'),
+    url(r'^accounts/create_worksheet/$',
+        views.create_worksheet, name='registration_create_worksheet'),
 
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', include(admin.site.urls)),

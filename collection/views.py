@@ -82,3 +82,15 @@ def create_worksheet(request):
     return render(request, 'worksheets/create_worksheet.html', {
         'form': form,
     })
+
+def browse_by_name(request, initial=None):
+    if initial:
+        worksheets = Worksheet.objects.filter(name__istartwith=initial)
+        worksheets = worksheets.order_by('name')
+    else:
+        worksheets = Worksheet.objects.all().order_by('name')
+
+    return render(request, 'search/search.html', {
+        'worksheets': worksheets,
+        'initial': initial,
+    })
