@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete
-from django.views.generic import TemplateView
+from django.views.generic import (TemplateView, RedirectView,)
 from collection.backends import MyRegistrationView
 from collection import views
 
@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^contact/$',
         TemplateView.as_view(template_name='contact.html'),
         name='contact'),
+    url(r'^worksheets/$', RedirectView.as_view(pattern_name='browse', permanent=True)),
     url(r'^worksheets/(?P<slug>[-\w]+)/$', views.worksheet_detail,
         name='worksheet_detail'),
     url(r'^admin/', admin.site.urls),
@@ -39,6 +40,7 @@ urlpatterns = [
         name='edit_worksheet'),
 
     # our new browse flow
+    url(r'^browse/$', RedirectView.as_view(pattern_name='browse', permanent=True)),
     url(r'^browse/name/$',
         views.browse_by_name, name='browse'),
     url(r'^browse/name/(?P<initial>[-\w]+)/$',
