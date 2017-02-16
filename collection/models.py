@@ -13,4 +13,4 @@ class Post(models.Model):
     author = models.TextField()
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
-    worksheet = models.ForeignKey(Worksheet, blank=True, null=True)
+    worksheet = models.ForeignKey(to=Worksheet, related_name="entries", blank=True, null=True)

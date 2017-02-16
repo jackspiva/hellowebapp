@@ -14,4 +14,13 @@
         </a>
       </p>
     {% endif %}
+    {% if entries %}
+    <ul>
+      {% for entry in entries %}
+      <li>
+        {{ entry.author}} - {{ entry.text }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
 {% endblock content %}

@@ -16,9 +16,10 @@ def index(request):
 
 def worksheet_detail(request, slug):
     worksheet = Worksheet.objects.get(slug=slug)
-
+    entries = worksheet.entries.all()
     return render(request, 'worksheets/worksheet_detail.html', {
         'worksheet': worksheet,
+        'entries': entries,
     })
 
 # add below your worksheet_detail view
