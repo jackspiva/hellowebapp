@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # import your models here.
-from collection.models import Worksheet
+from collection.models import Worksheet, Post
 
 # set up automated slug creation
 class WorksheetAdmin(admin.ModelAdmin):
@@ -11,3 +11,5 @@ class WorksheetAdmin(admin.ModelAdmin):
 
 # and register it
 admin.site.register(Worksheet, WorksheetAdmin)
+
+admin.site.register(Post)
