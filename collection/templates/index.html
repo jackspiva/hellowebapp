@@ -4,12 +4,11 @@
 {% endblock title %}
 
 {% block content %}
+  <div class="list-group">
     {% for worksheet in worksheets %}
-    <h2>
-      <a href="{% url 'worksheet_detail' slug=worksheet.slug %}">
+      <a href="{% url 'worksheet_detail' slug=worksheet.slug %}" class="list-group-item">
         {{ worksheet.name }}
       </a>
-    </h2>
-    <p>{{ worksheet.description }}</p>
-    {% endfor %}
+   {% endfor %}
+ </div>
 {% endblock content %}
