@@ -68,4 +68,8 @@ urlpatterns = [
 
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^admin/', include(admin.site.urls)),
+
+
+    url(r'^api/worksheets/$', views.api_worksheet_list, name="api_worksheet_list"),
+    url(r'^api/worksheets/(?P<id>[0-9]+)/$', views.api_worksheet_detail, name="api_worksheet_detail"),
 ]

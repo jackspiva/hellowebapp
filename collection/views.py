@@ -4,15 +4,21 @@ from collection.forms import WorksheetForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from collection.models import Worksheet
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from collection.serializers import WorksheetSerializer
 
 # Create your views here.
+
+
 def index(request):
     worksheets = Worksheet.objects.all()
-
 
     return render(request, 'index.html', {
         'worksheets': worksheets,
     })
+
 
 def worksheet_detail(request, slug):
     worksheet = Worksheet.objects.get(slug=slug)
@@ -23,6 +29,8 @@ def worksheet_detail(request, slug):
     })
 
 # add below your worksheet_detail view
+
+
 @login_required
 def edit_worksheet(request, slug):
     # grab the object
@@ -54,6 +62,7 @@ def edit_worksheet(request, slug):
         'form': form,
     })
 
+
 def create_worksheet(request):
     form_class = WorksheetForm
 
@@ -84,6 +93,7 @@ def create_worksheet(request):
         'form': form,
     })
 
+
 def browse_by_name(request, initial=None):
     if initial:
         worksheets = Worksheet.objects.filter(name__istartwith=initial)
@@ -95,3 +105,29 @@ def browse_by_name(request, initial=None):
         'worksheets': worksheets,
         'initial': initial,
     })
+
+
+@api_view(['GET'])
+def api_worksheet_list(request):
+    """
+    List all the worksheets
+    """
+    if request.method == 'GET':
+        worksheets = Worksheet.objects.all()
+        serializer = WorksheetSerializer(worksheets, many=True)
+        return Response(serializer.data)
+
+
+@api_view(['GET'])
+def api_worksheet_detail(request, id):
+    """
+    Get a specific worksheet
+    """
+    try:
+        worksheet = Worksheet.objects.get(id=id)
+    except Worksheet.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT - FOUND)
+
+    if request.method == 'GET':
+        serializer = WorksheetSerializer(worksheet)
+        return Response(serializer.data)
