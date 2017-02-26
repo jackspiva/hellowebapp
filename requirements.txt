@@ -6,4 +6,4 @@ pyparsing==2.1.10
 six==1.10.0
 hellowebapp-deploy
 psycopg2==2.6.1
-rest_framework==3.5.4
+rest_framework==3.5
