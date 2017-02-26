@@ -21,7 +21,9 @@ from django.contrib.auth.views import password_reset, password_reset_done, passw
 from django.views.generic import (TemplateView, RedirectView,)
 from collection.backends import MyRegistrationView
 from collection import views
+from rest_framework_swagger.views import get_swagger_view
 
+schema_view = get_swagger_view(title='Worksheet API')
 
 urlpatterns = [
     url(r'^$', views.index, name='home'),
@@ -71,5 +73,7 @@ urlpatterns = [
 
 
     url(r'^api/worksheets/$', views.api_worksheet_list, name="api_worksheet_list"),
-    url(r'^api/worksheets/(?P<id>[0-9]+)/$', views.api_worksheet_detail, name="api_worksheet_detail"),
+    url(r'^api/worksheets/(?P<id>[0-9]+)/$',
+        views.api_worksheet_detail, name="api_worksheet_detail"),
+    url(r'^api/docs/$', schema_view),
 ]
